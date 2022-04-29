@@ -44,3 +44,26 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+# Application Create Form
+class ApplicationCreate(LoginRequiredMixin, CreateView):
+    model = Application
+    fields = ['name', 'role', 'salary', 'location', 'site']  # this is two underscores
+    # This inherited method is called when a
+    # valid application form is being submitted
+
+    def form_valid(self, form):
+      # Assign the logged in user (self.request.user)
+      form.instance.user = self.request.user  # form.instance is the cat
+      # Let the CreateView do its job as usual
+      return super().form_valid(form)
+
+class ApplicationUpdate(LoginRequiredMixin, UpdateView):
+    model = Application
+    # we dont want to let anyone change cats name, so lets not include the name in the fields
+    fields = ['role', 'salary', 'location', 'site']
+    # where's the redirect defined at for a put request?
+
+class ApplicationDelete(LoginRequiredMixin, DeleteView):
+    model = Application
+    # because our model is redirecting to specific application but we just deleted it
+    success_url = '/applications/'
