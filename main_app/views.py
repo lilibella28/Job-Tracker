@@ -75,12 +75,11 @@ def applications_index(request):
     return render(request, 'applications/index.html', {'applications': applications})
 
 
-# path('cats/<int:cat_id>/' <- this is where cat_id comes from-
+
 @login_required
 def applications_detail(request, application_id):
     application = Application.objects.get(id=application_id)
-    # toys_application_doesnt_have = Toy.objects.exclude(id__in = application.toys.all().values_list('id'))
-    # create an instance of FeedingForm
+    # create an instance of NoteForm
     note_form = NoteForm()
 
     return render(request, 'applications/detail.html', {'application': application, 'note_form': note_form})
@@ -93,12 +92,12 @@ def add_note(request, application_id):
 	# validate
 	if form.is_valid():
 		# do somestuff
-		# creates an instance of out feeding to be put in the database
+		# creates an instance of note to be put in the database
 		# lets not save it yet, commit=False because we didnt add the foreign key
 		new_note = form.save(commit=False)
 		#look at the note for application field in the Feeding Model
 		new_note.application_id = application_id
-		new_note.save() # adds the feeding to the database, and the feeding be associated with the cat
+		new_note.save() # adds the note to the database, and the note be associated with the cat
 		# with same id as the argument to the function cat_id
 
 
