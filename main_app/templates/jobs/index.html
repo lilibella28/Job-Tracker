@@ -4,10 +4,10 @@
 <h1>Job Application List</h1>
 
 {% for job in jobs %}
-<a href="{% url 'detail' job.id %}">
+<a href="{% url 'detail' application.id %}">
   <div class="card">
     <div class="card-content">
-      <span class="card-title">{{ job.name }}</span>
+      <span class="card-title">{{ application.name }}</span>
       
     </div>
   </div>
