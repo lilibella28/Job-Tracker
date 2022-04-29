@@ -84,3 +84,22 @@ def applications_detail(request, application_id):
     note_form = NoteForm()
 
     return render(request, 'applications/detail.html', {'application': application, 'note_form': note_form})
+
+
+@login_required
+def add_note(request, application_id):
+	# create a ModelForm Instance using the data in the request
+	form = NoteForm(request.POST)
+	# validate
+	if form.is_valid():
+		# do somestuff
+		# creates an instance of out feeding to be put in the database
+		# lets not save it yet, commit=False because we didnt add the foreign key
+		new_note = form.save(commit=False)
+		#look at the note for application field in the Feeding Model
+		new_note.application_id = application_id
+		new_note.save() # adds the feeding to the database, and the feeding be associated with the cat
+		# with same id as the argument to the function cat_id
+
+
+	return redirect('detail', application_id=application_id)
