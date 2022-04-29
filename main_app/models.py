@@ -9,11 +9,11 @@ SITES = (
 )
 # Create your models here.
 class Application(models.Model):
-	name = models.CharField(max_length=100)
-	role = models.CharField(max_length=100)
-	salary = models.CharField(max_length=250)
-	location = models.CharField(max_length=250)
-	site = models.CharField(
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    salary = models.CharField(max_length=250)
+    location = models.CharField(max_length=250)
+    site = models.CharField(
 		max_length=1,
 		#choices
 		choices=SITES,
@@ -21,13 +21,11 @@ class Application(models.Model):
 	)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-	def __str__(self):
-		return f"The application named {self.name} has id of {self.id}"
+    def __str__(self):
+        return f"The application named {self.name} has id of {self.id}"
 
-
-	def get_absolute_url(self):
-		
-		return reverse('detail', kwargs={'application_id': self.id})
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'application_id': self.id})
 
 
 class Note(models.Model):
