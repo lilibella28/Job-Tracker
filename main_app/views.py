@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 # Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'jobapptracker'
 import boto3 
 import uuid 
 
