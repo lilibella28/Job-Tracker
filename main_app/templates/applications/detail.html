@@ -23,7 +23,11 @@
 </div>
 
 <div class="col s6">
-    <form action="{ url ''}"></form>
+    <form action="{% url 'add_note' application.id %}">
+        {% csrf_token %}
+        {{note_form.as_p}}
+
+    </form>
 </div>
 
 
