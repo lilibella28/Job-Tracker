@@ -33,7 +33,7 @@ class Note(models.Model):
 	name = models.CharField(max_length=100)
 	note = models.CharField(max_length=250)
 	# the foregin key always goes on the many side
-	# internally it will be cat_id the _id automatically gets added
+	# internally it will be application_id the _id automatically gets added
 	application = models.ForeignKey(Application, on_delete=models.CASCADE)
 
 	def __str__(self):
