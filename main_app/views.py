@@ -67,3 +67,20 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     # because our model is redirecting to specific application but we just deleted it
     success_url = '/applications/'
+
+@login_required
+def applications_index(request):
+    applications = Application.objects.filter(user=request.user)  # using our model to get all the rows in our application table in psql
+    #another way: applications = request.user.application_set.all()
+    return render(request, 'applications/index.html', {'applications': applications})
+
+
+# path('cats/<int:cat_id>/' <- this is where cat_id comes from-
+@login_required
+def applications_detail(request, application_id):
+    application = Application.objects.get(id=application_id)
+    # toys_application_doesnt_have = Toy.objects.exclude(id__in = application.toys.all().values_list('id'))
+    # create an instance of FeedingForm
+    note_form = NoteForm()
+
+    return render(request, 'applications/detail.html', {'application': application, 'note_form': note_form})
