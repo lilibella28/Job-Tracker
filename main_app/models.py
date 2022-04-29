@@ -19,3 +19,12 @@ class Application(models.Model):
 		choices=SITES,
 		default=SITES[0][0]
 	)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return f"The application named {self.name} has id of {self.id}"
+
+
+	def get_absolute_url(self):
+		
+		return reverse('detail', kwargs={'application_id': self.id})
