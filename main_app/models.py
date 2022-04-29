@@ -44,3 +44,11 @@ class Note(models.Model):
 
 	class Meta:
 		ordering = ['-date']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+  
+
+    def __str__(self):
+        return f"Photo for application_id: {self.application_id} @{self.url}" 
