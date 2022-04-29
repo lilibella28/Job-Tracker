@@ -37,7 +37,6 @@ class Note(models.Model):
 	application = models.ForeignKey(Application, on_delete=models.CASCADE)
 
 	def __str__(self):
-		# this method will gives us the friendly meal choices value, so like Breakfast instead of B
 		return f"note {self.name} on {self.date}"
 
 	class Meta:
