@@ -19,11 +19,15 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'about'}">About</a></li>
+          
+          {% if user.is_authenticated %}  
           <li><a href="{% url 'applications_index' %}">View All Jobs</a></li>
           <li><a href="{% url 'applications_create' %}">Add a Job</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
+         {% else %}
           <li><a href="{% url 'login' %}">Log In</a></li>
           <li><a href="{% url 'signup' %}">Signup</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
