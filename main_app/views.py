@@ -39,7 +39,7 @@ def signup(request):
 
 # Define the home view
 def home(request):
-    return render(request, 'about.html')
+    return render(request, 'home.html')
 
 def about(request):
     return render(request, 'about.html')
