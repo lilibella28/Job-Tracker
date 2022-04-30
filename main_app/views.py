@@ -104,3 +104,18 @@ def add_note(request, application_id):
 
 
 	return redirect('detail', application_id=application_id)
+
+@login_required
+def add_photo(request, application_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    try: 
+      s3.upload_fileojb(photo_file, BUCKET, key)
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      Photo.objects.create(url=url, application_id=application_id)
+    except:
+      print('We have an error here uploading to S3')
+  return redirect('detail', application_id=application_id)
+
