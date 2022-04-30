@@ -128,3 +128,14 @@ def send_network_request(request, profile_id):
     return f"network request sent"
   else:
     return f"network request was already sent"
+
+@login_required
+def accept_network_request(request, request_id):
+  network_request= Network_Request.objects.get(id=request_id)
+  if network_request.to_user = network_request:
+    network_request.to_user.networks.add(network_request.from_user)
+    network_request.from_user.networks.add(network_request.to_user)
+    network_request.delete()
+    return f"network request accepted"
+  else:
+    return f"network request declined"

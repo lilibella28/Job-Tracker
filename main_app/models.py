@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	network = models.ManyToManyField("self", blank=True)
+	networks = models.ManyToManyField("self", blank=True)
 	intro = models.CharField(max_length=250)
 	title = models.CharField(max_length=100)
 	hobies = models.CharField(max_length=100)

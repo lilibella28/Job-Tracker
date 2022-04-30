@@ -12,4 +12,6 @@ urlpatterns = [
   path('applications/<int:application_id>/add_note/', views.add_note, name='add_note'),
   path('applications/<int:application_id>/add_photo/', views.add_photo, name='add_photo'),
   path('accounts/signup/', views.signup, name='signup'),
+  path('send_network_request/<int:profile_id>/', views.send_network_request, name='send_network_request'),
+  path('accept_network_request/<int:request_id>/', views.accept_network_request, name='accept_network_request'),
 ]
