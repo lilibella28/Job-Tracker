@@ -23,7 +23,7 @@
 </div>
 </div>
 <div class="col s6">
-    <form action="{% url 'add_note' application.id %}">
+    <form action="{% url 'add_note' application.id %}" method="post">
         {% csrf_token %}
         {{note_form.as_p}}
         <input type="submit" value="Add Note" class="btn">
@@ -45,4 +45,13 @@
     </table>
     </div>
     </div>
+    <script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+    </script>
 {% endblock %}
