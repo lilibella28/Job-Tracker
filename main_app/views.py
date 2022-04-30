@@ -119,3 +119,12 @@ def add_photo(request, application_id):
       print('We have an error here uploading to S3')
   return redirect('detail', application_id=application_id)
 
+@login_required
+def send_network_request(request, profile_id):
+  from_user = request.user
+  to_user = User.objects.get(id=profile_id)
+  network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
+  if created:
+    return f"network request sent"
+  else:
+    return f"network request was already sent"
