@@ -107,7 +107,7 @@ def add_note(request, application_id):
 
 
 @login_required
-def add_photo(request, cat_id):
+def add_photo(request, application_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
