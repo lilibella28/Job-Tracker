@@ -21,14 +21,28 @@
   <a href="{% url 'applications_delete' application.id %}">Delete</a>
 </div>
 </div>
-
+</div>
 <div class="col s6">
     <form action="{% url 'add_note' application.id %}">
         {% csrf_token %}
         {{note_form.as_p}}
-
+        <input type="submit" value="Add Note" class="btn">
     </form>
-</div>
 
-
+<table class="striped">
+    <thead>
+        <tr><th>Date</th> <th>Name</th> <th>Detail</th></tr>
+    </thead>
+    <tbody>
+        {% for note in application.note_set.all %}
+        <tr>
+            <td>{{note.date}}</td>
+            <td>{{note.name}}</td>
+            <td>{{note.note}}</td>
+        </tr>
+        {% endfor%}
+    </tbody>
+    </table>
+    </div>
+    </div>
 {% endblock %}
