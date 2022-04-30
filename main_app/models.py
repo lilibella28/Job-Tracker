@@ -2,6 +2,21 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
+
+class Profile(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	network = models.ManyToManyField("self", blank=True)
+	intro = models.CharField(max_length=250)
+	title = models.CharField(max_length=100)
+	hobies = models.CharField(max_length=100)
+	def __str__(self):
+		return f"This profile belongs to {self.user.username}"
+
+class Network_Request(models.Model):
+	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+	to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
+
+
 SITES = (
 	('O', 'On-Site'),
 	('R', 'Remote'),
