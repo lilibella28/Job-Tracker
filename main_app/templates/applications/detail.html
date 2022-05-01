@@ -34,7 +34,13 @@
       {% csrf_token %} {{note_form.as_p}}
       <input type="submit" value="Add Note" class="btn" />
     </form> 
+    {% if application.status == 'Moving Forward' %}
     <div class="card-panel green-text center-align">Application status is: {{application.status}}</div>
+    {% elif application.status == 'Pending' %}
+    <div class="card-panel orange-text center-align">Your application status is: {{application.status}}</div>
+    {% elif application.status == 'Rejected'%}
+    <div class="card-panel red-text center-align">Your application status is: {{application.status}}</div>
+    {% endif %}
     <table class="striped">
       <thead>
         <tr>
