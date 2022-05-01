@@ -11,12 +11,12 @@
 </head>
 <body>
   <header class="navbar-fixed">
-    <nav class="nav">
+    <nav class="nav indigo darken-2">
       <div class="nav-wrapper">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Job Tracker</a></li>
         </ul>
-        <ul class="right">
+        <ul class="right ">
           <li><a href="{% url 'about'%}">About</a></li>
           
           {% if user.is_authenticated %}  
@@ -35,8 +35,9 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer class=" nav page-footer">
-    <div class="right">All Rights Reserved, &copy; 2022 Job Tracker &nbsp;</div>
+  <footer class="page-footer indigo darken-2">
+    <div class="footer-copyright left">An Error 404 creation</div>
+    <div class="footer-copyright right">All Rights Reserved, &copy; 2022 Job Tracker &nbsp;</div>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
