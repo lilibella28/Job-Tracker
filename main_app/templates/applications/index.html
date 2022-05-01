@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Job Application List</h1>
+<h1 id="heading">Application List</h1>
 
 {% for application in applications %}
 <a href="{% url 'detail' application.id %}">
   <div class="card">
-    <div class="card-content">
+    <div class="card-content black-text">
       <span class="card-title">{{ application.name }}</span>
       <p>Role: {{ application.role }}</p>
       <p>Salary: {{ application.salary }}</p>
