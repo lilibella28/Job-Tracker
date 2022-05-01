@@ -8,11 +8,13 @@
   <div class="card">
     <div class="card-content black-text">
       <span class="card-title">{{ application.name }}</span>
-      <p>Role: {{ application.role }}</p>
-      <p>Salary: {{ application.salary }}</p>
-      <p>Location: {{application.location }}</p>
-      <p>Site: {{application.site}}</p>
-      <p>Status: {{application.status}}</p>
+      {% if application.status == 'Moving Forward' %}
+      <p class="green-text">Application status is: {{application.status}}</p>
+      {% elif application.status == 'Pending' %}
+      <p class="orange-text">Your application status is: {{application.status}}</p>
+      {% elif application.status == 'Rejected'%}
+      <p class="red-text">Your application status is: {{application.status}}</p>
+      {% endif %}
     </div>
   </div>
   </a>
