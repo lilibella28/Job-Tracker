@@ -1,3 +1,4 @@
+from os import link
 from telnetlib import STATUS
 from django.db import models
 from django.urls import reverse
@@ -20,6 +21,7 @@ class Application(models.Model):
     role = models.CharField(max_length=100)
     salary = models.CharField(max_length=250)
     location = models.CharField(max_length=250)
+    link = models.URLField(max_length=200, default='https://www.linkedin.com/jobs')
     site = models.CharField(
 		max_length=1,
 		#choices
