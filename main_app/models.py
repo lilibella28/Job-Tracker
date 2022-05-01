@@ -21,7 +21,7 @@ class Application(models.Model):
     role = models.CharField(max_length=100)
     salary = models.CharField(max_length=250)
     location = models.CharField(max_length=250)
-    link = models.URLField(max_length=200, default='https://www.linkedin.com/jobs')
+    link = models.URLField(max_length=200)
     site = models.CharField(
 		max_length=1,
 		#choices
