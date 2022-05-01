@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 # Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
 BUCKET = 'jobapptracker'
 import boto3 
@@ -39,7 +41,14 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 
+# @receiver(user_signed_up)
+# def after_user_signed_up(request, user, **kwargs):
+#     profile = Profile.objects.create(name=user.username) 
+#     print(profile)
+#     profile.save()
+
 # Define the home view
+
 def home(request):
     return render(request, 'home.html')
 
@@ -69,6 +78,11 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     # because our model is redirecting to specific application but we just deleted it
     success_url = '/applications/'
+
+@login_required
+def profile(request):
+  network_request = Network_Request.objects.filter(to_user=request.user)
+  return render(request, 'network/profile.html', {'network_request':network_request})
 
 @login_required
 def networks_index(request):
@@ -130,6 +144,7 @@ def add_photo(request, application_id):
 def send_network_request(request, profile_id):
   from_user = request.user
   User = get_user_model()
+  print(profile_id)
   to_user = User.objects.get(id=profile_id)
   network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
   if created:
@@ -140,9 +155,13 @@ def send_network_request(request, profile_id):
 @login_required
 def accept_network_request(request, request_id):
   network_request= Network_Request.objects.get(id=request_id)
-  if network_request.to_user == network_request:
-    network_request.to_user.networks.add(network_request.from_user)
-    network_request.from_user.networks.add(network_request.to_user)
+  if network_request.to_user == request.user:
+    profile = Profile.objects.get(user=network_request.to_user)
+    print(f"{profile} and ----------------------------------------------------------------------------------------------------------------------")
+    a = Profile.objects.get(user=network_request.to_user).networks.add(network_request.from_user)
+    # network_request.to_user.networks.add(network_request.from_user)
+    b = Profile.objects.get(user=network_request.from_user).networks.add(network_request.to_user)
+    # network_request.from_user.networks.add(network_request.to_user)
     network_request.delete()
     return HttpResponse('network request accepted')
   else:
