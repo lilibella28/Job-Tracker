@@ -44,3 +44,14 @@ h1 {
   line-height: 0.9;
   text-align: center;
 }
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+    width:100%;
+  }
+  .about{
+      background-color:#e1f5fe;
+  }
+  
