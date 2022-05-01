@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponse  # res.send in express
-from .models import Application, Note, Photo  # importing our model
+from .models import Application, Note, Photo, Profile, Network_Request # importing our model
 from .forms import NoteForm
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login # this is a function to log in the user
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -71,6 +71,13 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
     success_url = '/applications/'
 
 @login_required
+def networks_index(request):
+  User = get_user_model()
+  users = User.objects.all()
+  return render(request, 'network/index.html', {'users': users})
+
+
+@login_required
 def applications_index(request):
     applications = Application.objects.filter(user=request.user)  # using our model to get all the rows in our application table in psql
     #another way: applications = request.user.application_set.all()
@@ -122,20 +129,21 @@ def add_photo(request, application_id):
 @login_required
 def send_network_request(request, profile_id):
   from_user = request.user
+  User = get_user_model()
   to_user = User.objects.get(id=profile_id)
   network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
   if created:
-    return f"network request sent"
+    return HttpResponse('network request sent')
   else:
-    return f"network request was already sent"
+    return HttpResponse('network request was already sent')
 
 @login_required
 def accept_network_request(request, request_id):
   network_request= Network_Request.objects.get(id=request_id)
-  if network_request.to_user = network_request:
+  if network_request.to_user == network_request:
     network_request.to_user.networks.add(network_request.from_user)
     network_request.from_user.networks.add(network_request.to_user)
     network_request.delete()
-    return f"network request accepted"
+    return HttpResponse('network request accepted')
   else:
-    return f"network request declined"
+    return HttpResponse('network request declined')

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Start Networking</h1>
+
+{% for user in users %}
+<h4>{{user}}<a href="/send_network_request/{{user.id}}/">send network request</a></h4>
+{% endfor %}
+
+{% endblock %}

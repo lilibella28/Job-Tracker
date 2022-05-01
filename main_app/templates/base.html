@@ -21,6 +21,7 @@
           <li><a href="{% url 'about'%}">About</a></li>
           
           {% if user.is_authenticated %}  
+          <li><a href="{% url 'networkindex' %}">View All Networks</a></li>
           <li><a href="{% url 'index' %}">View All Jobs</a></li>
           <li><a href="{% url 'applications_create' %}">Add a Job</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
