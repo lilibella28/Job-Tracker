@@ -1,3 +1,4 @@
+from telnetlib import STATUS
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -6,6 +7,12 @@ SITES = (
 	('O', 'On-Site'),
 	('R', 'Remote'),
 	('H', 'Hybrid'),
+)
+# Create your models here.
+STATUS = (
+	('Pending', 'Pending'),
+	('Moving Forward', 'Moving Forward'),
+	('Rejected', 'Rejected'),
 )
 # Create your models here.
 class Application(models.Model):
@@ -18,6 +25,12 @@ class Application(models.Model):
 		#choices
 		choices=SITES,
 		default=SITES[0][0]
+	)
+    status = models.CharField(
+		max_length=15,
+		#choices
+		choices=STATUS,
+		default=STATUS[0][0]
 	)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
