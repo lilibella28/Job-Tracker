@@ -4,7 +4,7 @@
 <p>Welcome {{user.username}}</p>
 
 <p>Network Requests</p>
-{% for network_request in network_requests %}
+{% for network_request in network_request %}
 
 <p>{{network_request.from_user}}</p>
 <a href="/accept_network_request/{{network_request.id}}/">accept</a>

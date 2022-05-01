@@ -40,13 +40,6 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
-# @receiver(user_signed_up)
-# def after_user_signed_up(request, user, **kwargs):
-#     profile = Profile.objects.create(name=user.username) 
-#     print(profile)
-#     profile.save()
-
 # Define the home view
 
 def home(request):
