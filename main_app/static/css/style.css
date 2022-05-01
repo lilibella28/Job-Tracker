@@ -54,4 +54,8 @@ h1 {
   .about{
       background-color:#e1f5fe !important;
   }
-  
+  .container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+  }
