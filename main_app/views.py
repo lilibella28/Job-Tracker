@@ -166,7 +166,7 @@ def send_network_request(request, profile_id):
   to_user = User.objects.get(id=profile_id)
   network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
   if created:
-    return HttpResponse('network request sent')
+    return redirect('/networks/')
   else:
     return HttpResponse('network request was already sent')
 
@@ -181,6 +181,6 @@ def accept_network_request(request, request_id):
     b = Profile.objects.get(user=network_request.from_user).networks.add(network_request.to_user)
     # network_request.from_user.networks.add(network_request.to_user)
     network_request.delete()
-    return HttpResponse('network request accepted')
+    return redirect('/profile/')
   else:
     return HttpResponse('network request declined')
