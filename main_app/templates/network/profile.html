@@ -14,7 +14,12 @@
 
 
 <p>Network Connections</p>
-<p>{{profile}}</p>
+    
+    {% for p in  profile%}
+    <p>{{p.networks}}</p>
+    {% endfor %}
+        
+
 
 {% endblock %}
 
