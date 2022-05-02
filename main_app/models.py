@@ -23,7 +23,7 @@ class Profile(models.Model):
 	hobies = models.CharField(max_length=100, blank=True)
 	def __str__(self):
 		return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
-    
+
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
 	if created:
@@ -106,3 +106,4 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for application_id: {self.application_id} @{self.url}"
+

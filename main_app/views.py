@@ -89,6 +89,7 @@ def profile(request):
   profile = Profile.objects.filter(user=request.user).values("networks")
   print(request.user)
   print(profile)
+  
 
   network_request = Network_Request.objects.filter(to_user=request.user)
   return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile})
