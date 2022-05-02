@@ -20,7 +20,7 @@ class Profile(models.Model):
 	title = models.CharField(max_length=100, blank=True)
 	hobies = models.CharField(max_length=100, blank=True)
 	def __str__(self):
-		return f"This profile belongs to {self.user.username}"
+		return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

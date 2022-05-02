@@ -67,6 +67,18 @@ class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     fields = ['role', 'salary', 'location', 'site']
     # where's the redirect defined at for a put request?
 
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['name', 'intro', 'title', 'hobies']
+    def form_valid(self, form):
+      # Assign the logged in user (self.request.user)
+      form.instance.user = self.request.user  # form.instance is the cat
+      # Let the CreateView do its job as usual
+      return super().form_valid(form)
+    # we dont want to let anyone change cats name, so lets not include the name in the fields
+
+    # where's the redirect defined at for a put request?
+
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     # because our model is redirecting to specific application but we just deleted it

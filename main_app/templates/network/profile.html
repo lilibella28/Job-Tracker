@@ -2,6 +2,7 @@
 {% block content %}
 
 <p>Welcome {{user.username}}</p>
+<a href="{% url 'profile_update' user.id %}">Edit</a>
 
 <p>Network Requests</p>
 {% for network_request in network_request %}
