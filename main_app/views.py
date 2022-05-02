@@ -5,14 +5,16 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponse  # res.send in express
-from .models import Application, Note, Photo  # importing our model
+from .models import Application, Note, Photo, Profile, Network_Request # importing our model
 from .forms import NoteForm
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login # this is a function to log in the user
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 # Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
 BUCKET = 'jobapptracker'
 import boto3 
@@ -38,8 +40,8 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
 # Define the home view
+
 def home(request):
     return render(request, 'home.html')
 
@@ -65,10 +67,38 @@ class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     fields = ['role', 'salary', 'location', 'link','site','status']
     # where's the redirect defined at for a put request?
 
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['name', 'intro', 'title', 'hobies']
+    def form_valid(self, form):
+      # Assign the logged in user (self.request.user)
+      form.instance.user = self.request.user  # form.instance is the cat
+      # Let the CreateView do its job as usual
+      return super().form_valid(form)
+    # we dont want to let anyone change cats name, so lets not include the name in the fields
+
+    # where's the redirect defined at for a put request?
+
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     # because our model is redirecting to specific application but we just deleted it
     success_url = '/applications/'
+
+@login_required
+def profile(request):
+  profile = Profile.objects.filter(user=request.user).values("networks")
+  print(request.user)
+  print(profile)
+
+  network_request = Network_Request.objects.filter(to_user=request.user)
+  return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile})
+
+@login_required
+def networks_index(request):
+  User = get_user_model()
+  users = User.objects.all()
+  return render(request, 'network/index.html', {'users': users})
+
 
 @login_required
 def applications_index(request):
@@ -105,7 +135,6 @@ def add_note(request, application_id):
 
 	return redirect('detail', application_id=application_id)
 
-
 @login_required
 def add_photo(request, application_id):
   photo_file = request.FILES.get('photo-file', None)
@@ -119,3 +148,30 @@ def add_photo(request, application_id):
     except:
       print('We have an error here uploading to S3')
   return redirect('detail', application_id=application_id)
+
+@login_required
+def send_network_request(request, profile_id):
+  from_user = request.user
+  User = get_user_model()
+  print(profile_id)
+  to_user = User.objects.get(id=profile_id)
+  network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
+  if created:
+    return HttpResponse('network request sent')
+  else:
+    return HttpResponse('network request was already sent')
+
+@login_required
+def accept_network_request(request, request_id):
+  network_request= Network_Request.objects.get(id=request_id)
+  if network_request.to_user == request.user:
+    profile = Profile.objects.get(user=network_request.to_user)
+    print(f"{profile} and ----------------------------------------------------------------------------------------------------------------------")
+    a = Profile.objects.get(user=network_request.to_user).networks.add(network_request.from_user)
+    # network_request.to_user.networks.add(network_request.from_user)
+    b = Profile.objects.get(user=network_request.from_user).networks.add(network_request.to_user)
+    # network_request.from_user.networks.add(network_request.to_user)
+    network_request.delete()
+    return HttpResponse('network request accepted')
+  else:
+    return HttpResponse('network request declined')
