@@ -1,3 +1,5 @@
+from os import link
+from telnetlib import STATUS
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -8,16 +10,29 @@ SITES = (
 	('H', 'Hybrid'),
 )
 # Create your models here.
+STATUS = (
+	('Pending', 'Pending'),
+	('Moving Forward', 'Moving Forward'),
+	('Rejected', 'Rejected'),
+)
+# Create your models here.
 class Application(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     salary = models.CharField(max_length=250)
     location = models.CharField(max_length=250)
+    link = models.URLField(max_length=200)
     site = models.CharField(
 		max_length=1,
 		#choices
 		choices=SITES,
 		default=SITES[0][0]
+	)
+    status = models.CharField(
+		max_length=15,
+		#choices
+		choices=STATUS,
+		default=STATUS[0][0]
 	)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
