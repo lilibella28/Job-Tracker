@@ -54,7 +54,11 @@ h1 {
   .about{
       background-color:#e1f5fe !important;
   }
-  
+  .container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+  }
 #heading{
     color: #303f9f;
     font-size: 4rem;
