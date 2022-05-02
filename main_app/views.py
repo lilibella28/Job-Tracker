@@ -96,8 +96,17 @@ def profile(request):
 @login_required
 def networks_index(request):
   User = get_user_model()
+  network_requests = Network_Request.objects.filter(from_user=request.user).values('to_user_id')
   users = User.objects.all()
-  return render(request, 'network/index.html', {'users': users})
+  networks = Profile.objects.filter(user=request.user).values('networks')
+  
+  for network in networks:
+    networks=network['networks']
+    print(network['networks'])
+  for network_request in network_requests:
+    network_requests=network_request['to_user_id']
+    print(network_requests)
+  return render(request, 'network/index.html', {'users': users, 'networks':networks, 'network_requests':network_requests})
 
 
 @login_required
