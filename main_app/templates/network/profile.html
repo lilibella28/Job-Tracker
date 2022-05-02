@@ -15,9 +15,11 @@
 
 <p>Network Connections</p>
     
-    {% for p in  profile%}
-    <p>{{p.networks}}</p>
-    {% endfor %}
+{% for network in networks %}
+{% for n in network %}
+    <p>{{n.username}}</p>
+{% endfor %}
+{% endfor %}
         
 
 
