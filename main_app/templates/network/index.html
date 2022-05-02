@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1 id="heading">Start Networking</h1>
 
-<p>Start Networking</p>
-
+<div class="row">
 {% for user in users %}
 {% if user != request.user %}
 {% if user.id != network_requests %}
-<p>{{user}}<a href="/send_network_request/{{user.id}}/">send network request</a></p>
-{% endif %}
-{% endif %}
-{% endfor %}
-
+        <div class="col s12 m4">
+        <div class="card indigo accent-2 ">
+        <div class="card-content white-text">
+          <span class="card-title "><i class="material-icons">person_add</i> {{ user.username }}</span><br>
+          <p><button class="waves-effect indigo darken-2  btn-small"><a href="/send_network_request/{{user.id}}/" class="white-text">Send Network Request</a></button></p>
+        </div>
+            </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
 {% endblock %}
