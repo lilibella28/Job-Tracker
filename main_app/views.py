@@ -86,12 +86,22 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def profile(request):
-  profile = Profile.objects.filter(user=request.user).values("networks")
-  print(request.user)
-  print(profile)
+  User = get_user_model()
+  profiles = Profile.objects.filter(user=request.user).values("networks")
+
+  networks = []
+  for profile in profiles:
+    print(f"{profiles} second profile" )
+    profiles=profile['networks']
+    print(profiles)
+    network = User.objects.filter(id=profiles).values('username')
+    print(network)
+    networks.append(network)
+    # network = str(network)
 
   network_request = Network_Request.objects.filter(to_user=request.user)
-  return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile})
+  print(f"{networks} networks")
+  return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile, 'networks':networks})
 
 @login_required
 def networks_index(request):
