@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
  
@@ -21,19 +22,21 @@ class Profile(models.Model):
 	def __str__(self):
 		return f"This profile belongs to {self.user.username}"
 
+@receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)
 		print("Profile created")
 
-post_save.connect(create_profile, sender=User)
+# post_save.connect(create_profile, sender=User)
 
+@receiver(post_save, sender=User)
 def update_profile(sender, instance, created, **kwargs):
 	if created == False:
 		instance.profile.save()
 		print("Profile Updated")
 
-post_save.connect(update_profile, sender=User)
+# post_save.connect(update_profile, sender=User)
 
 class Network_Request(models.Model):
 	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
