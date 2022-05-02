@@ -4,9 +4,9 @@
 {% block content %}
 
 {% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+<h1 id="heading">Edit <span class="teal-text">{{object.name}}</span></h1>
 {% else %}
-<h1>Add Application</h1>
+<h1 id="heading">Add Application</h1>
 {% endif %}
 <!-- Leaving the action blank will use the same url that was used in order to get the form -->
 <form action="" method="POST">
@@ -21,5 +21,8 @@
 <script>
 	const selectEl = document.getElementById('id_site');
 	M.FormSelect.init(selectEl)
+	const selectStatus = document.getElementById( 'id_status');
+	M.FormSelect.init(selectStatus)
+	
 </script>
 {% endblock content %}

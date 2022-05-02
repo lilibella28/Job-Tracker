@@ -13,11 +13,8 @@ footer.page-footer {
     text-align: right;
 }
 
-.nav{
-    background-color: #1c91cc !important;
-}
 .hero {
-    position: relative; 
+    position: relative;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -25,22 +22,50 @@ footer.page-footer {
     justify-content: center;
 }
 
-.hero::before {    
-      content: "";
-    
-      background-size: cover;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      opacity: 0.75 !important;
+.hero::before {
+    content: "";
+
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.75 !important;
 }
 
 h1 {
-  position: relative !important;
-  color: #ffffff;  
-  font-size: 14rem;
-  line-height: 0.9;
-  text-align: center;
+    position: relative !important;
+    color: #ffffff;
+    font-size: 14rem;
+    line-height: 0.9;
+    text-align: center;
+}
+
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    width: 100%;
+}
+
+.about {
+    background-color: #e1f5fe !important;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+}
+
+#heading {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+
+.nav {
+    background-color: #1c91cc !important;
 }

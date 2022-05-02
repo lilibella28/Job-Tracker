@@ -51,7 +51,7 @@ def about(request):
 # Application Create Form
 class ApplicationCreate(LoginRequiredMixin, CreateView):
     model = Application
-    fields = ['name', 'role', 'salary', 'location', 'site']  # this is two underscores
+    fields = ['name', 'role', 'salary', 'location', 'link','site', 'status', ]  # this is two underscores
     # This inherited method is called when a
     # valid application form is being submitted
 
@@ -64,7 +64,7 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     model = Application
     # we dont want to let anyone change cats name, so lets not include the name in the fields
-    fields = ['role', 'salary', 'location', 'site']
+    fields = ['role', 'salary', 'location', 'link','site','status']
     # where's the redirect defined at for a put request?
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
