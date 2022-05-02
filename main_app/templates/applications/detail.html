@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Job Details</h1>
+<h1 id="heading">Job Details</h1>
 <div class="row">
   <div class="col s6">
     <div class="card">
@@ -10,6 +10,8 @@
         <p>Role: {{application.role}}</p>
         <p>Salary: {{application.salary}}</p>
         <p>Location: {{application.location}}</p>
+        <p>Link: <a href="{{ application.link }}" target="_blank" >{{application.link}}</a></p>
+        <p>Status: {{application.status}}</p>
       </div>
       <div class="card-action">
         <a href="{% url 'applications_update' application.id %}">Edit</a>
@@ -29,11 +31,17 @@
 		</form>
   </div>
   <div class="col s6">
+    {% if application.status == 'Moving Forward' %}
+    <div class="card-panel green-text center-align">Application status is: {{application.status}}</div>
+    {% elif application.status == 'Pending' %}
+    <div class="card-panel orange-text center-align">Your application status is: {{application.status}}</div>
+    {% elif application.status == 'Rejected'%}
+    <div class="card-panel red-text center-align">Your application status is: {{application.status}}</div>
+    {% endif %}
     <form action="{% url 'add_note' application.id %}" method="post">
       {% csrf_token %} {{note_form.as_p}}
       <input type="submit" value="Add Note" class="btn" />
-    </form>
-
+    </form> 
     <table class="striped">
       <thead>
         <tr>
