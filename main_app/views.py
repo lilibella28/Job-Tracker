@@ -15,9 +15,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'jobapptracker'
 import boto3 
 import uuid 
-BUCKET = 'jobapptracker'
 
 # sign up
 
