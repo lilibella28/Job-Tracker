@@ -2,7 +2,7 @@
 {% block content %}
 <h3 id="heading" >Welcome {{user.username}}</h3>
 
-{% for avatar in profile.avatar_set.all %}
+{% for avatar in user.profile.avatar_set.all %}
 <img class="responsive-img card-panel" src="{{avatar.url}}">
 {% empty %}
 <div class="card-panel teal-text center-align">No avatar Uploaded</div>
