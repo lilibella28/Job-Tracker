@@ -66,18 +66,30 @@ class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     # we dont want to let anyone change cats name, so lets not include the name in the fields
     fields = ['role', 'salary', 'location', 'link','site','status']
     # where's the redirect defined at for a put request?
+    success_url = "/"
 
-class ProfileUpdate(LoginRequiredMixin, UpdateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields = ['name', 'intro', 'title', 'hobies']
+    fields = ['name', 'role', 'salary', 'location', 'link','site', 'status', ]  # this is two underscores
+    # This inherited method is called when a
+    # valid application form is being submitted
+
     def form_valid(self, form):
       # Assign the logged in user (self.request.user)
       form.instance.user = self.request.user  # form.instance is the cat
       # Let the CreateView do its job as usual
       return super().form_valid(form)
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['name', 'intro', 'title', 'hobies']
+    success_url = '/profile/'
     # we dont want to let anyone change cats name, so lets not include the name in the fields
 
     # where's the redirect defined at for a put request?
+
+
+
 
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
