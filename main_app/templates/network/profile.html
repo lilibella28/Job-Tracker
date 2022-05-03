@@ -19,35 +19,48 @@ class="card-panel"
 <input type="submit" class="btn" value="Upload Photo" />
 </form><br>
 <!-- user.username, username came from tthe User built-in Django -->
-<div class="row">
+<div class="row ">
     <div class="col s6">
-      <div class="card">
-        <div class="card-content">
+      <div class="card card indigo accent-2">
+        <div class="card-content white-text">
           <span class="card-title"> Profile </span>
-          <p>Name: {{user.profile.name}}</p>
-          <p>Networks: {{user.profile.networks}}</p>
-          <p>Intro: {{user.profile.intro}}</p>
-          <p>Title: {{user.profile.title}}</p>
-          <p>Hobbies: {{user.profile.hobbies}}</p>
+        {% if not user.profile.name%}
+        {%else%}
+        <p>Name: {{user.profile.name}}</p>
+        {%endif%}
+
+        {% if not user.profile.intro%}
+        {%else%}
+        <p>Intro: {{user.profile.intro}}</p>
+        {%endif%}
+
+        {% if not user.profile.title%}
+        {%else%}
+        <p>Title: {{user.profile.title}}</p>
+        {%endif%}
+
+        {% if not user.profile.hobbies%}
+        {%else%}
+        <p>Hobbies: {{user.profile.hobbies}}</p>
+        {%endif%}
         </div>
         <div class="card-action">
             <a href="{% url 'profile_update' user.id %}">Edit</a>
         </div>
       </div>
 
-<p>Network Requests</p>
+<p class="card-panel  " >Network Requests</p>
 {% for network_request in network_request %}
 <!-- File Path to display the user request and accept itt -->
-<p>{{network_request.from_user}}</p>
-<a href="/accept_network_request/{{network_request.id}}/">accept</a>
+<p class="card-panel large-text "> {{network_request.from_user}}   <button class="waves-effect indigo darken-2  btn-small"><a href="/accept_network_request/{{network_request.id}}/" class="white-text">Accept</a></button></p>
 
 {% endfor %}
-<p>Network Connections</p>
+<p class="card-panel">Network Connections</p>
     
 <!-- Display each element that is added to the nettwork -->
 {% for network in networks %}
 {% for n in network %}
-    <p>{{n.username}}</p>
+    <p class="card-panel indigo accent-2 white-text">{{n.username}}</p>
 {% endfor %}
 {% endfor %}
     
