@@ -69,3 +69,19 @@ h1 {
 .nav {
     background-color: #1c91cc !important;
 }
+
+.containerlogin {
+    margin-top: 50px;
+}
+
+#password {
+    margin-bottom: 30px;
+}
+
+.containersignup {
+    margin-top: 50px;
+}
+
+.colsignup {
+    margin-left: 30px;
+}

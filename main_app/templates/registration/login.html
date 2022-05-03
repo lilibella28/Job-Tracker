@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
-
+<div class="container center">
+  <h3 id="heading">Please, login into your account</h3>
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn" value="login">
-    <input type="hidden" name="next" value="{{ next }}">
+    <div class="containerlogin">
+      <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <div class="input-field row s6">
+            <input class="validate" type="text" name="username" id="username">
+            <label for="username">Enter your Username</label>
+          </div>
+          <div class="input-field row s6">
+            <input class="validate" type="password" name="password" id="password">
+            <label for="password">Enter your password</label>
+            <input type="submit" class="btn" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+            </div>
+        </div>
+      </div>
   </form>
-  
+  </div>
 {% endblock %}
