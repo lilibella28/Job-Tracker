@@ -59,7 +59,7 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 
 class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     model = Application
-    # we dont want to let anyone change cats name, so lets not include the name in the fields
+    # we dont want to let anyone change aplication name, so lets not include the name in the fields
     fields = ['role', 'salary', 'location', 'link','site','status']
     # where's the redirect defined at for a put request?
     success_url = "/"
