@@ -10,4 +10,4 @@ class NoteForm(ModelForm):
 class ProfileUpdate(ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['name', 'intro', 'title', 'hobies']
+		fields = ['name', 'intro', 'title', 'hobbies']

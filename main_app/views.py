@@ -78,7 +78,7 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = ['name', 'intro', 'title', 'hobies']
+    fields = ['name', 'intro', 'title', 'hobbies']
     success_url = '/profile/'
     # we dont want to let anyone change cats name, so lets not include the name in the fields
 
