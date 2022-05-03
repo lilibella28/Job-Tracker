@@ -15,7 +15,7 @@ class Profile(models.Model):
     networks = models.ManyToManyField(User, related_name='networks', blank=True)
     intro = models.CharField(max_length=250, blank=True)
     title = models.CharField(max_length=100, blank=True)
-    hobies = models.CharField(max_length=100, blank=True)
+    hobbies = models.CharField(max_length=100, blank=True)
     def __str__(self):
         return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
 
