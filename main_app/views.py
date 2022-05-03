@@ -1,5 +1,4 @@
-import uuid
-import boto3
+
 from django.shortcuts import render, redirect
 # CRUD OPERRATIONS##
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
