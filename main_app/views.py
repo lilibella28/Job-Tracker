@@ -172,16 +172,12 @@ def add_photo(request, application_id):
 def add_avatar(request, profile_id):
   print(f"this is the profile id {profile_id}")
   avatar_file = request.FILES.get('avatar-file', None)
-  print(f"avatar {avatar_file}")
   if avatar_file:
     s3 = boto3.client('s3')
-    print(f"s3 ----- {s3}")
     key = uuid.uuid4().hex[:6] + avatar_file.name[avatar_file.name.rfind('.'):]
-    print(f"key ----- {key}")
     try: 
       s3.upload_fileobj(avatar_file, BUCKET, key)
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
-      print(f"url ----- {url}")
       Avatar.objects.create(url=url, profile_id=profile_id)
     except:
       print('We have an error here uploading to S3')
