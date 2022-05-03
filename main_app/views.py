@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView  ##CRUD OPERRATIONS##
 from django.views.generic import ListView, DetailView #Generc datatype
 from django.http import HttpResponse  # res.send in express
-from .models import Application, Note, Photo, Profile, Network_Request ###importing our model###
+from .models import Application, Note, Photo, Profile, Network_Request, Avatar ###importing our model###
 from .forms import NoteForm ##Rendering Form##
 from django.contrib.auth import get_user_model   ### getting user model
 from django.contrib.auth import login # this is a function to log in the user
@@ -167,6 +167,20 @@ def add_photo(request, application_id):
       print('We have an error here uploading to S3')
   return redirect('detail', application_id=application_id)
 
+
+@login_required
+def add_avatar(request, profile_id):
+  avatar_file = request.FILES.get('avatar-file', None)
+  if avatar_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + avatar_file.name[avatar_file.name.rfind('.'):]
+    try: 
+      s3.upload_fileojb(avatar_file, BUCKET, key)
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      avatar.objects.create(url=url, profile_id=profile_id)
+    except:
+      print('We have an error here uploading to S3')
+  return redirect('/profile/', profile_id=profile_id)
 ############################
 
 #FUNCTIONS TO SEND AND REQUEST NETTWORK INVITATIONS
