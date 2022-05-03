@@ -7,7 +7,17 @@
 {% empty %}
 <div class="card-panel teal-text center-align">No avatar Uploaded</div>
 {% endfor %}
-
+<form
+action="{% url 'add_avatar' user.id %}"
+enctype="multipart/form-data"
+method="POST"
+class="card-panel"
+>
+{% csrf_token %}
+<input type="file" name="avatar-file" />
+<br /><br />
+<input type="submit" class="btn" value="Upload Photo" />
+</form>
 <!-- user.username, username came from tthe User built-in Django -->
 <div class="row">
     <div class="col s6">
