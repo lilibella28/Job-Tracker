@@ -4,8 +4,11 @@
 <p>Start Networking</p>
 
 {% for user in users %}
+{% if user != request.user %}
+{% if user.id != network_requests %}
 <p>{{user}}<a href="/send_network_request/{{user.id}}/">send network request</a></p>
-
+{% endif %}
+{% endif %}
 {% endfor %}
 
 {% endblock %}
