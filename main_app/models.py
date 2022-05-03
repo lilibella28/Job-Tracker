@@ -24,11 +24,12 @@ class Profile(models.Model):
 	def __str__(self):
 		return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
 
+# @receiver user to conect the signal 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)
-		print("Profile created")
+#More about
 
 # post_save.connect(create_profile, sender=User)
 
@@ -36,34 +37,39 @@ def create_profile(sender, instance, created, **kwargs):
 def update_profile(sender, instance, created, **kwargs):
 	if created == False:
 		instance.profile.save()
-		print("Profile Updated")
+
 
 # post_save.connect(update_profile, sender=User)
-
+# Many to many relationship
 class Network_Request(models.Model):
 	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
 	to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
 
-
+###############################
+#Tuples
+###################################
 SITES = (
         ('O', 'On-Site'),
         ('R', 'Remote'),
         ('H', 'Hybrid'),
 )
-# Create your models here.
 STATUS = (
     ('Pending', 'Pending'),
     ('Moving Forward', 'Moving Forward'),
     ('Rejected', 'Rejected'),
 )
+#######################################################
 # Create your models here.
-
+#APPLICATION MODEL
+#Note Models
+#Photo
+#################################################
 class Application(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
-    salary = models.CharField(max_length=250, blank=True)
-    location = models.CharField(max_length=250, blank=True)
-    link = models.URLField(max_length=200, blank=True)
+    salary = models.CharField(max_length=250)
+    location = models.CharField(max_length=250)
+    link = models.URLField(max_length=200)
     site = models.CharField(
         max_length=1,
         # choices

@@ -16,5 +16,5 @@ urlpatterns = [
   path('accounts/signup/', views.signup, name='signup'),
   path('send_network_request/<int:profile_id>/', views.send_network_request, name='send_network_request'),
   path('accept_network_request/<int:request_id>/', views.accept_network_request, name='accept_network_request'),
-  path('networks/<int:pk>/update/', views.ProfileUpdate.as_view(), name='profile_update'),
+  path('network/<int:pk>/update/', views.ProfileUpdate.as_view(), name='profile_update'),
 ]

@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
-# Add the following import
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView  ##CRUD OPERRATIONS##
+from django.views.generic import ListView, DetailView #Generc datatype
 from django.http import HttpResponse  # res.send in express
-from .models import Application, Note, Photo, Profile, Network_Request # importing our model
-from .forms import NoteForm
-from django.contrib.auth import get_user_model
+from .models import Application, Note, Photo, Profile, Network_Request ###importing our model###
+from .forms import NoteForm ##Rendering Form##
+from django.contrib.auth import get_user_model   ### getting user model
 from django.contrib.auth import login # this is a function to log in the user
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-# Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
@@ -87,8 +84,7 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
 @login_required
 def profile(request):
   profile = Profile.objects.filter(user=request.user).values("networks")
-  print(request.user)
-  print(profile)
+
 
   network_request = Network_Request.objects.filter(to_user=request.user)
   return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile})
@@ -149,18 +145,22 @@ def add_photo(request, application_id):
       print('We have an error here uploading to S3')
   return redirect('detail', application_id=application_id)
 
+############################
+
+#FUNCTIONS TO SEND AND REQUEST NETTWORK INVITATIONS
+############################
+
 @login_required
 def send_network_request(request, profile_id):
   from_user = request.user
   User = get_user_model()
-  print(profile_id)
   to_user = User.objects.get(id=profile_id)
   network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
   if created:
     return HttpResponse('network request sent')
   else:
     return HttpResponse('network request was already sent')
-
+    #redirect me, where should i go?
 @login_required
 def accept_network_request(request, request_id):
   network_request= Network_Request.objects.get(id=request_id)
@@ -170,6 +170,7 @@ def accept_network_request(request, request_id):
     a = Profile.objects.get(user=network_request.to_user).networks.add(network_request.from_user)
     # network_request.to_user.networks.add(network_request.from_user)
     b = Profile.objects.get(user=network_request.from_user).networks.add(network_request.to_user)
+    #where those variable are being use? 
     # network_request.from_user.networks.add(network_request.to_user)
     network_request.delete()
     return HttpResponse('network request accepted')

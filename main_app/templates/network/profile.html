@@ -2,29 +2,25 @@
 {% block content %}
 
 <p>Welcome {{user.username}}</p>
+<!-- user.username, username came from tthe User built-in Django -->
 <a href="{% url 'profile_update' user.id %}">Edit</a>
 
 <p>Network Requests</p>
 {% for network_request in network_request %}
-
+<!-- File Path to display the user request and accept itt -->
 <p>{{network_request.from_user}}</p>
 <a href="/accept_network_request/{{network_request.id}}/">accept</a>
 
 {% endfor %}
-
-
 <p>Network Connections</p>
     
-
+<!-- Display each element that is added to the nettwork -->
 {% for network in networks %}
 {% for n in network %}
     <p>{{n.username}}</p>
 {% endfor %}
 {% endfor %}
-        
-
-
-
+    
 {% endblock %}
 
 
