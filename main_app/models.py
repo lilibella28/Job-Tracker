@@ -7,39 +7,25 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
- 
-# @receiver(user_signed_up)
-# def after_user_signed_up(request, user, **kwargs):
-# 	profile = Profile.objects.create(name=user.username) 
-# 	print(profile)
-# 	profile.save()
+
 
 class Profile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	name = models.CharField(max_length=100, blank=True)
-	networks = models.ManyToManyField(User, related_name='networks', blank=True)
-	intro = models.CharField(max_length=250, blank=True)
-	title = models.CharField(max_length=100, blank=True)
-	hobies = models.CharField(max_length=100, blank=True)
-	def __str__(self):
-		return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True)
+    networks = models.ManyToManyField(User, related_name='networks', blank=True)
+    intro = models.CharField(max_length=250, blank=True)
+    title = models.CharField(max_length=100, blank=True)
+    hobies = models.CharField(max_length=100, blank=True)
+    def __str__(self):
+        return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
 
-# @receiver user to conect the signal 
+    
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-	if created:
-		Profile.objects.create(user=instance)
-#More about
-
-# post_save.connect(create_profile, sender=User)
-
-@receiver(post_save, sender=User)
-def update_profile(sender, instance, created, **kwargs):
-	if created == False:
-		instance.profile.save()
+    if created:
+        Profile.objects.create(pk=instance.id, user=instance)
 
 
-# post_save.connect(update_profile, sender=User)
 # Many to many relationship
 class Network_Request(models.Model):
 	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)

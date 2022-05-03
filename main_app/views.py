@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView  ##CRUD OPERRATIONS##
 from django.views.generic import ListView, DetailView #Generc datatype
 from django.http import HttpResponse  # res.send in express
@@ -63,18 +62,30 @@ class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     # we dont want to let anyone change cats name, so lets not include the name in the fields
     fields = ['role', 'salary', 'location', 'link','site','status']
     # where's the redirect defined at for a put request?
+    success_url = "/"
 
-class ProfileUpdate(LoginRequiredMixin, UpdateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields = ['name', 'intro', 'title', 'hobies']
+    fields = ['name', 'role', 'salary', 'location', 'link','site', 'status', ]  # this is two underscores
+    # This inherited method is called when a
+    # valid application form is being submitted
+
     def form_valid(self, form):
       # Assign the logged in user (self.request.user)
       form.instance.user = self.request.user  # form.instance is the cat
       # Let the CreateView do its job as usual
       return super().form_valid(form)
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['name', 'intro', 'title', 'hobies']
+    success_url = '/profile/'
     # we dont want to let anyone change cats name, so lets not include the name in the fields
 
     # where's the redirect defined at for a put request?
+
+
+
 
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
@@ -83,17 +94,28 @@ class ApplicationDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def profile(request):
+  User = get_user_model()
+  profiles = Profile.objects.filter(user=request.user).values("networks")
+  networks = []
+  for profile in profiles:
+    profiles=profile['networks']
+    network = User.objects.filter(id=profiles).values('username')
+    networks.append(network)
   profile = Profile.objects.filter(user=request.user).values("networks")
-
-
   network_request = Network_Request.objects.filter(to_user=request.user)
-  return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile})
+  return render(request, 'network/profile.html', {'network_request':network_request, 'profile':profile, 'networks':networks})
 
 @login_required
 def networks_index(request):
   User = get_user_model()
+  network_requests = Network_Request.objects.filter(from_user=request.user).values('to_user_id')
   users = User.objects.all()
-  return render(request, 'network/index.html', {'users': users})
+  networks = Profile.objects.filter(user=request.user).values('networks')
+  for network in networks:
+    networks=network['networks']
+  for network_request in network_requests:
+    network_requests=network_request['to_user_id']
+  return render(request, 'network/index.html', {'users': users, 'networks':networks, 'network_requests':network_requests})
 
 
 @login_required
@@ -157,7 +179,7 @@ def send_network_request(request, profile_id):
   to_user = User.objects.get(id=profile_id)
   network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
   if created:
-    return HttpResponse('network request sent')
+    return redirect('/networks/')
   else:
     return HttpResponse('network request was already sent')
     #redirect me, where should i go?
@@ -173,6 +195,6 @@ def accept_network_request(request, request_id):
     #where those variable are being use? 
     # network_request.from_user.networks.add(network_request.to_user)
     network_request.delete()
-    return HttpResponse('network request accepted')
+    return redirect('/profile/')
   else:
     return HttpResponse('network request declined')
