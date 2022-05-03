@@ -2,6 +2,11 @@
 {% block content %}
 
 <p>Welcome {{user.username}}</p>
+{% for avatar in profile.avatar_set.all %}
+<img class="responsive-img card-panel" src="{{avatar.url}}">
+{% empty %}
+<div class="card-panel teal-text center-align">No avatar Uploaded</div>
+{% endfor %}
 <!-- user.username, username came from tthe User built-in Django -->
 <a href="{% url 'profile_update' user.id %}">Edit</a>
 
