@@ -177,7 +177,7 @@ def add_avatar(request, profile_id):
     try: 
       s3.upload_fileojb(avatar_file, BUCKET, key)
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
-      avatar.objects.create(url=url, profile_id=profile_id)
+      Avatar.objects.create(url=url, profile_id=profile_id)
     except:
       print('We have an error here uploading to S3')
   return redirect('/profile/', profile_id=profile_id)
