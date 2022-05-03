@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3 id="heading" >Welcome {{user.username}}</h3>
+
 {% for avatar in profile.avatar_set.all %}
 <img class="responsive-img card-panel" src="{{avatar.url}}">
 {% empty %}
 <div class="card-panel teal-text center-align">No avatar Uploaded</div>
 {% endfor %}
+
 <!-- user.username, username came from tthe User built-in Django -->
 <div class="row">
     <div class="col s6">
