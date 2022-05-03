@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
-BUCKET = 'jobapptracker'
+BUCKET ='jobapptracker'
 import boto3 
 import uuid 
 
@@ -160,11 +160,11 @@ def add_photo(request, application_id):
     s3 = boto3.client('s3')
     key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
     try: 
-      s3.upload_fileojb(photo_file, BUCKET, key)
+      s3.upload_fileobj(photo_file, BUCKET, key)
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
       Photo.objects.create(url=url, application_id=application_id)
     except:
-      print('We have an error here uploading to S3')
+      print(f"{S3_BASE_URL}, {BUCKET} , /{key}")
   return redirect('detail', application_id=application_id)
 
 
@@ -175,7 +175,7 @@ def add_avatar(request, profile_id):
     s3 = boto3.client('s3')
     key = uuid.uuid4().hex[:6] + avatar_file.name[avatar_file.name.rfind('.'):]
     try: 
-      s3.upload_fileojb(avatar_file, BUCKET, key)
+      s3.upload_fileobj(avatar_file, BUCKET, key)
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
       Avatar.objects.create(url=url, profile_id=profile_id)
     except:
