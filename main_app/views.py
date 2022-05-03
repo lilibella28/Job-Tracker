@@ -29,8 +29,7 @@ def signup(request):
             user = form.save()
             login(request, user)
             return redirect('index')
-        else:
-            error_message = 'Invalid sign up - try again'
+        else: error_message = 'Invalid sign up - try again'
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
@@ -50,8 +49,7 @@ def about(request):
 
 class ApplicationCreate(LoginRequiredMixin, CreateView):
     model = Application
-    fields = ['name', 'role', 'salary', 'location', 'link',
-              'site', 'status', ] 
+    fields = ['name', 'role', 'salary', 'location', 'link','site', 'status', ] 
 
 
     def form_valid(self, form):
@@ -68,8 +66,7 @@ class ApplicationUpdate(LoginRequiredMixin, UpdateView):
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields = ['name', 'role', 'salary', 'location', 'link',
-              'site', 'status', ]  # this is two underscores
+    fields = ['name', 'role', 'salary', 'location', 'link','site', 'status', ]  # this is two underscores
     # This inherited method is called when a
     # valid application form is being submitted
 
@@ -107,8 +104,7 @@ def profile(request):
 @login_required
 def networks_index(request):
     User = get_user_model()
-    network_requests = Network_Request.objects.filter(
-        from_user=request.user).values('to_user_id')
+    network_requests = Network_Request.objects.filter(from_user=request.user).values('to_user_id')
     users = User.objects.all()
     networks = Profile.objects.filter(user=request.user).values('networks')
     for network in networks:
@@ -154,8 +150,7 @@ def add_photo(request, application_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + \
-            photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
@@ -170,8 +165,7 @@ def add_avatar(request, profile_id):
     avatar_file = request.FILES.get('avatar-file', None)
     if avatar_file:
         s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + \
-            avatar_file.name[avatar_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + avatar_file.name[avatar_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(avatar_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
@@ -191,8 +185,7 @@ def send_network_request(request, profile_id):
     from_user = request.user
     User = get_user_model()
     to_user = User.objects.get(id=profile_id)
-    network_request, created = Network_Request.objects.get_or_create(
-        from_user=from_user, to_user=to_user)
+    network_request, created = Network_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
     if created:
         return redirect('/networks/')
     else:
@@ -205,10 +198,8 @@ def accept_network_request(request, request_id):
     network_request = Network_Request.objects.get(id=request_id)
     if network_request.to_user == request.user:
         profile = Profile.objects.get(user=network_request.to_user)
-        Profile.objects.get(user=network_request.to_user).networks.add(
-            network_request.from_user)
-        Profile.objects.get(user=network_request.from_user).networks.add(
-            network_request.to_user)
+        Profile.objects.get(user=network_request.to_user).networks.add(network_request.from_user)
+        Profile.objects.get(user=network_request.from_user).networks.add(network_request.to_user)
         network_request.delete()
         return redirect('/profile/')
     else:
