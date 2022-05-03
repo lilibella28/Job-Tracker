@@ -2,16 +2,46 @@
 
 
 {% block content %}
-<h1 id="heading">Sign Up</h1>
 
+<h1 id="heading">Sign Up</h1>
+<div class="containersignup center">
 {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
 
 <form action="{% url 'signup' %}" method="post">
 	{% csrf_token %}	
 
-	{{ form.as_p }}
-	<input type="submit" class="btn" value="signup">
-		
+	<div class="container col s6">
+		<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+			<div class="container col s6">  
+				<div><p>Requirements:</p></div>
+				<div><p>150 characters or fewer.<br>
+					 Letters, digits and @/./+/-/_ only.</p></div>
+				<div><p>Unique Password.<br>
+					   at least 8 characters.<br>
+					  can’t be entirely numeric.</p></div>
+			  </div>
+			<div class='col colsignup'>
+			  <div class="row">
+			<div class='input-field row s6'>
+			  <input class='validate' maxlength="150" type='text' name='username' id='id_username' />
+			  <label for='id_username'>Enter Username</label>
+			</div>
+			<div class='input-field row s6'>
+			  <input class='validate' type='password' name='password1' autocomplete="new-password" id='id_password1' />
+			  <label for='id_password1'>Enter password</label>
+		  </div>
+			<div class='input-field row s6'>
+			  <input class='validate' type='password' name='password2' autocomplete="new-password" id='id_password2' />
+			  <label for='id_password2'>Confirm Password</label>
+          </div>
+		 </div>
+		</div>
+		<input type="submit" class="btn" value="signup">
+	  </div>
+		</div>
+	</div>
 </form>
 
+		
+</div>
 {% endblock content %}
