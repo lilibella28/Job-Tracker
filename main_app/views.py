@@ -170,6 +170,7 @@ def add_photo(request, application_id):
 
 @login_required
 def add_avatar(request, profile_id):
+  print(f"this is the profile id {profile_id}")
   avatar_file = request.FILES.get('avatar-file', None)
   if avatar_file:
     s3 = boto3.client('s3')
@@ -180,6 +181,7 @@ def add_avatar(request, profile_id):
       Avatar.objects.create(url=url, profile_id=profile_id)
     except:
       print('We have an error here uploading to S3')
+      # print(f"{S3_BASE_URL}{BUCKET}/{key}")
   return redirect('/profile/', profile_id=profile_id)
 ############################
 
