@@ -61,7 +61,6 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 class ApplicationUpdate(LoginRequiredMixin, UpdateView):
     model = Application
     fields = ['role', 'salary', 'location', 'link', 'site', 'status']
-    success_url = "/"
 
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
