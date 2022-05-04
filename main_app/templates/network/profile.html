@@ -15,17 +15,16 @@
 </div>
 
 <div class="col s6 m4">
-<form
-action="{% url 'add_avatar' user.id %}"
-enctype="multipart/form-data"
-method="POST"
-class="card-panel s6 m4"
->
-{% csrf_token %}
-<input type="file" name="avatar-file" />
-<br /><br />
-<input type="submit" class="btn indigo accent-2" value="Upload Photo" />
-</form><br>
+  {% if not user.profile.avatar_set.all %}
+  <form action="{% url 'add_avatar' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel s6 m4">
+    {% csrf_token %}
+    <input type="file" name="avatar-file" />
+    <br /><br />
+    <input type="submit" class="btn indigo accent-2" value="Upload Photo" />
+  </form><br>
+  {% endif %}
+  
+  <div></div>
 </div>
 </div>
 <!-- user.username, username came from tthe User built-in Django -->
