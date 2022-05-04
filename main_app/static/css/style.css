@@ -78,10 +78,17 @@ h1 {
     margin-bottom: 30px;
 }
 
-.containersignup {
-    margin-top: 50px;
-}
+
 
 .colsignup {
-    margin-left: 30px;
+    margin-right: 30px;
+}
+
+
+.signupbtn {
+    background-color: #1c91cc;
+}
+
+.loginbtn {
+    background-color: #1c91cc;
 }
