@@ -19,6 +19,8 @@
 
 <br>
 
+## Screenshots:
+
 ![Application Page](screenshots/application.png)
 
 ![Profile Page](screenshots/profile.png)
@@ -27,9 +29,13 @@
 
 <br>
 
-### Planning
-- [Pitch Deck](https://docs.google.com/presentation/d/1gGMe0__gT2qXWe9JK3oomszeMZgLg7xVvH_jHaTTAJ8/edit?usp=sharing)
+## User Stories | ERD Diagram | Wireframes | Pitch Deck
+
 - [Trello Board](https://trello.com/b/T1CAsZFU/job-trackers)
+- [Pitch Deck](https://docs.google.com/presentation/d/1gGMe0__gT2qXWe9JK3oomszeMZgLg7xVvH_jHaTTAJ8/edit?usp=sharing)
+
+
+
 <br>
 
 #### Technologies used:
