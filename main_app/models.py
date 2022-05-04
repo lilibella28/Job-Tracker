@@ -53,9 +53,9 @@ STATUS = (
 class Application(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
-    salary = models.CharField(max_length=250)
-    location = models.CharField(max_length=250)
-    link = models.URLField(max_length=200)
+    salary = models.CharField(max_length=250, blank=True)
+    location = models.CharField(max_length=250, blank=True)
+    link = models.URLField(max_length=200, blank=True)
     site = models.CharField(
         max_length=1,
         # choices
