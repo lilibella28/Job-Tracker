@@ -6,7 +6,7 @@
 {% for avatar in user.profile.avatar_set.all %}
 <img class="responsive-img card-panel" src="{{avatar.url}}">
 {% empty %}
-<div class="card-panel teal-text center-align">No avatar Uploaded
+<div class="card-panel orange-text accent-2-text center-align">No avatar Uploaded
   <br> <br>
   <br> <br>
 </div>
@@ -61,13 +61,13 @@
       </div>
     </div>
 <div class="col s6">
-<p class="card-panel  " >Network Requests</p>
+<p class="card-panel grey lighten-4  " >Network Requests</p>
 {% for network_request in network_request %}
 <!-- File Path to display the user request and accept itt -->
-<p class="card-panel large-text "> {{network_request.from_user}}   <button class="waves-effect indigo darken-2  btn-small"><a href="/accept_network_request/{{network_request.id}}/" class="white-text">Accept</a></button></p>
+<p class="card-panel large-text "> {{network_request.from_user}}   <button class="waves-effect indigo accent-2  btn-small"><a href="/accept_network_request/{{network_request.id}}/" class="white-text">Accept</a></button></p>
 
 {% endfor %}
-<p class="card-panel">Network Connections</p>
+<p class="card-panel grey lighten-4">Network Connections</p>
     
 <!-- Display each element that is added to the nettwork -->
 {% for network in networks %}
