@@ -7,7 +7,7 @@
 - Job Tracker [Deployed Link](https://jobtracer.herokuapp.com/)
 <br>
 
-<p>This application is meant as a Job Application tracking tool. Helping new grads, career transitioners, and veterans in their prospective fields keep track of their submitted applications. 
+<p>This mobile responsive application is meant as a Job Application tracking tool. Helping new grads, career transitioners, and veterans in their prospective fields keep track of their submitted applications. 
 
 <p>This group collabroation project was a full-stack CRUD Python/Django application and is based on simplifying your job search and networking with Job Tracker users. Allowing you to put in information for each application. You are able to include a photo of the job description, your adapted resume, notes for each step in the process, and so much more. You are also able to meet your peers using this application and connect with them. You begin by signing up and creating your profile. After that you are able to add your Job application and all your user info is protected by Django Authentication. Utilitizing PostgreSQL to manage user databases and AWS S3 bucket for user uploads. 
 
