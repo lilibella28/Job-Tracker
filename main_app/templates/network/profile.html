@@ -1,24 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3 id="heading" >Welcome {{user.username}}</h3>
-
+<div class="row">
+<div class="col s6 m4">
 {% for avatar in user.profile.avatar_set.all %}
 <img class="responsive-img card-panel" src="{{avatar.url}}">
 {% empty %}
-<div class="card-panel teal-text center-align">No avatar Uploaded</div>
+<div class="card-panel teal-text center-align">No avatar Uploaded
+  <br> <br>
+  <br> <br>
+</div>
+
 {% endfor %}
+</div>
+
+<div class="col s6 m4">
 <form
 action="{% url 'add_avatar' user.id %}"
 enctype="multipart/form-data"
 method="POST"
-class="card-panel"
+class="card-panel s6 m4"
 >
 {% csrf_token %}
 <input type="file" name="avatar-file" />
 <br /><br />
 <input type="submit" class="btn" value="Upload Photo" />
 </form><br>
+</div>
+</div>
 <!-- user.username, username came from tthe User built-in Django -->
+<div class="row">
+  <div class="s6">
 <div class="row ">
     <div class="col s6">
       <div class="card card indigo accent-2">
@@ -28,7 +40,7 @@ class="card-panel"
         {%else%}
         <p>Name: {{user.profile.name}}</p>
         {%endif%}
-
+      
         {% if not user.profile.intro%}
         {%else%}
         <p>Intro: {{user.profile.intro}}</p>
@@ -48,7 +60,8 @@ class="card-panel"
             <a href="{% url 'profile_update' user.id %}">Edit</a>
         </div>
       </div>
-
+    </div>
+<div class="col s6">
 <p class="card-panel  " >Network Requests</p>
 {% for network_request in network_request %}
 <!-- File Path to display the user request and accept itt -->
@@ -63,7 +76,8 @@ class="card-panel"
     <p class="card-panel indigo accent-2 white-text">{{n.username}}</p>
 {% endfor %}
 {% endfor %}
-    
+</div> 
+</div>
 {% endblock %}
 
 
