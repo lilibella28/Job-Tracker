@@ -11,15 +11,17 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
   <header class="navbar-fixed">
     <nav class="nav indigo darken-2">
-      <div class="nav-wrapper">
+      <div class="nav-wrapper ndigo darken-2">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Job Tracker</a></li>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
         </ul>
-        <ul class="right ">
+        <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'about'%}">About</a></li>
           
           {% if user.is_authenticated %}  
@@ -35,6 +37,22 @@
         </ul>
       </div>
     </nav>
+  
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="{% url 'about'%}">About</a></li>
+      
+      {% if user.is_authenticated %}  
+      <li><a href="{% url 'profile' %}">Profile</a></li>
+      <li><a href="{% url 'networkindex' %}">View All Networks</a></li>
+      <li><a href="{% url 'index' %}">View All Jobs</a></li>
+      <li><a href="{% url 'applications_create' %}">Add a Job</a></li>
+      <li><a href="{% url 'logout' %}">Log Out</a></li>
+     {% else %}
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      <li><a href="{% url 'signup' %}">Signup</a></li>
+      {% endif %}
+    </ul c>
+
   </header>
   <main class="container">
     {% block content %}
@@ -45,5 +63,13 @@
     <div class="footer-copyright right">All Rights Reserved, &copy; 2022 Job Tracker &nbsp;</div>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+  
+     
+  </script>
 </body>
 </html>

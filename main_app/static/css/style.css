@@ -92,3 +92,8 @@ h1 {
 .loginbtn {
     background-color: #1c91cc;
 }
+
+
+.navbar-fixed {
+    z-index: 999;
+}
