@@ -26,13 +26,13 @@
 -  AAU, I want to be able to signup, login, logout.
 -  AAU, I want to be able to create profile to store my information.
 -  AAU, I want to be able add an image to my profile.
--  AAU, I want to create and keep track of my job application because it will help organize the job searching process.
+-  AAU, I want to create and keep track of a job application to optimize and organize it.
 -  AAU, I want to be able to delete a job application if the job is not longer available.
 -  AAU, I want to be able to update a job application.
 -  AAU, I want to be able to mark an application as pending, rejected, or moving forward
--  AAU, I want to be able to make notes in my job applications. Because I want to keep track of any updates.
--  AAU, I want to be able to add and accept network invitation.
--  AAU, I want to be able to add an image of the job description. Because having an image of the job posting is good reference.
+-  AAU, I want to be able to make notes in my job applications to keep track of any updates.
+-  AAU, I want to be able to add and accept network invitations.
+-  AAU, I want to be able to add an image of the job description.
 
 ## ERD
 
