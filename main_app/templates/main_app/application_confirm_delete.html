@@ -2,10 +2,10 @@
 
 
 {% block content %}
-<h1>Delete Application</h1>
-
-<h4>Are you sure you want to delete <span >{{ object.name }}</span>?</h4>
-
+<h1 id="heading-Delete" >Delete Application</h1>
+<br><br>
+<h4>Are you sure you want to delete <span>{{ object.name }}</span>?</h4>
+<br>
 <form action="" method="POST">
   {% csrf_token %}
   <input type="submit" value="Yes - Delete!" class="btn indigo">
