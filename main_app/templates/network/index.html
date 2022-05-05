@@ -5,7 +5,7 @@
 <div class="row">
 {% for user in users %}
 {% if user != request.user %}
-{% if user.id != network_requests %}
+{% if user.id not in network_requests %}
         <div class="col s12 m4">
         <div class="card indigo accent-2 ">
         <div class="card-content white-text">
