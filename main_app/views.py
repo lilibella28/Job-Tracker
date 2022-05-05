@@ -103,13 +103,9 @@ def profile(request):
 @login_required
 def networks_index(request):
     User = get_user_model()
-    network_requests = Network_Request.objects.filter(from_user=request.user).values('to_user_id')
+    network_requests = Network_Request.objects.filter(from_user=request.user).values_list('to_user_id', flat = True)
     users = User.objects.all()
     networks = Profile.objects.filter(user=request.user).values('networks')
-    for network in networks:
-        networks = network['networks']
-    for network_request in network_requests:
-        network_requests = network_request['to_user_id']
     return render(request, 'network/index.html', {'users': users, 'networks': networks, 'network_requests': network_requests})
 
  # Function: Using our model to get all the rows in our application table in psql
