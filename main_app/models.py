@@ -19,7 +19,7 @@ class Profile(models.Model):
     def __str__(self):
         return f"This profile belongs to {self.user.username} with an id of {self.user_id}"
 
-    
+# using django signals to initiate a user profile upon the user signup
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
