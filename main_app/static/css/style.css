@@ -72,6 +72,7 @@ h1 {
 
 .containerlogin {
     margin-top: 50px;
+
 }
 
 #password {
@@ -98,8 +99,26 @@ h1 {
     z-index: 999;
 }
 
+@media only screen and (max-width: 860px) {
+    .row .col.s6 {
+      width: 100% !important;
+    }
 
-
-
-
+    .row .col.s4 {
+        width: 100% !important;
+    }
+    form.formAddJob {
+        width: 100% !important;
+        
+    }
+    /* I am here tto style h1 elemen inside the add application details */
+    .Addh1Mobile{
+        font-size: 20px !important;
+        font-weight: 600;
+    }
+    .h1inHomepg {
+        font-size: 38px;
+    }
+    
+  }
 
