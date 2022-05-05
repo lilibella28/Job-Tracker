@@ -60,7 +60,52 @@ h1 {
     width: 90%;
 }
 
-#heading {
+#heading-Detail {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Index{
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Delete {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Form-Add {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Form-Edit {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Profile-From {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Network-Index {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Profile-Welcome {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-Login {
+    color: #303f9f;
+    font-size: 4rem;
+    text-align: center;
+}
+#heading-SignUp {
     color: #303f9f;
     font-size: 4rem;
     text-align: center;

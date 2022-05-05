@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3 id="heading" >Welcome {{user.username}}</h3>
+<h3 id="heading-Profile-Welcome" >Welcome {{user.username}}</h3>
 <div class="row">
 <div class="col s6 m4">
 {% for avatar in user.profile.avatar_set.all %}
