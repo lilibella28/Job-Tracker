@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=prt9d-r#z6mn&1)ih#33%l0wk+wqh1p=f8r^$@9v4$_!c9y8p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['job-tracker-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://job-tracker-production.up.railway.app']
 
 
 # Application definition
